@@ -1,0 +1,44 @@
+<% @txs.each do |contract, txs| %>
+  <div class="card mb-5 p-3" data-address="<%= contract %>">
+    <div class="card-header">
+      <h3>
+        Approved Spender:
+        <%= link_to txs[0]["contract_link"], target: "_blank" do %>
+          <span class="spender"><%= contract %></span>
+        <% end %>
+        <span class="float-end h5">Danger Level: <span class="dangerLevel"></span></span>
+      </h3>
+    </div>
+    <table class="table">
+      <thead>
+        <tr class="table-container-tr">
+          <th scope="col">Token</th>
+          <th scope="col">Chain</th>
+          <th scope="col">TXID</th>
+          <th scope="col">Allowance</th>
+          <th scope="col">Approve Date</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% txs.each do |tx| %>
+          <tr class="tx" data-tx="<%= tx["txid"] %>" data-address="<%= tx["token_address"] %>">
+            <td style="width: 25%">
+              <img src="https://tokens.1inch.io/<%= tx["token_address"] %>.png" class="rounded-circle" width="25" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/CoinTool-App/cdn/pic/unknown-token.png';" />
+              <%= link_to tx["token_link"], target: "_blank" do %>
+                <span class="token"><%= tx["token_address"] %></span>
+              <% end %>
+            </td>
+            <td style="width: 10%"><%= tx["chain_name"].upcase %></td>
+            <td><%= link_to truncate(tx["txid"]), tx["tx_link"], target: "_blank" %></td>
+            <td class="allowance"></td>
+            <td class="date"></td>
+            <td><%= link_to "Revoke", "#", id: "revokeBtn", data: {token: tx["token_address"], contract: contract, is_erc20: tx["is_erc20"]} %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<%= hidden_field_tag :records, @txs.values.flatten.to_json %>

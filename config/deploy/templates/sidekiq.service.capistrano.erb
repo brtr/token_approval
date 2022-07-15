@@ -1,0 +1,18 @@
+[Unit]
+Description=sidekiq for <%= "#{fetch(:application)} (#{fetch(:stage)})" %>
+After=syslog.target network.target
+
+[Service]
+Type=simple
+Environment=RAILS_ENV=<%= fetch(:rails_env) %>
+Environment=NEW_RELIC_AGENT_ENABLED=<%= host.roles.to_a.include? :newrelic_sidekiq %>
+WorkingDirectory=<%= fetch(:deploy_to) %>/current
+ExecStart=<%= fetch(:bundler_path, '/usr/local/bin/bundler') %> exec sidekiq -e <%= fetch(:rails_env) %> -C ./config/sidekiq.yml %> <%= fetch(:sidekiq_queues).map { |queue| "-q #{queue}" }.join(" ") %>
+
+RestartSec=1
+Restart=on-failure
+
+SyslogIdentifier=sidekiq
+
+[Install]
+WantedBy=default.target

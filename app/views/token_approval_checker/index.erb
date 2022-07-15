@@ -1,0 +1,40 @@
+<div class="container mt-5 token-approval-checker-page p-5">
+  <h3 class="text-center">查询Token授权</h3>
+  <%= form_tag get_tokens_path, class: "form-inline text-center row", method: "GET", remote: true do %>
+    <div class="form-group my-3 col-8" style="margin-left:8rem;">
+      <%= text_field_tag :address, nil, class: "form-control" %>
+    </div>
+    <div class="form-group my-3 col-2" style="margin-left:-3rem;">
+      <%= button_tag "查询", class: 'btn btn-primary mb-2', id: 'submitBtn' %>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="row col-4 mx-auto position-relative">
+      <span class="chain-label">CHAIN:</span>
+      <select class="form-select mb-3" id="chainSelect">
+        <option selected value="1">ETH</option>
+        <option value="10">OPTIMISTIC</option>
+        <option value="56">BSC</option>
+        <option value="128">HECO</option>
+        <option value="137">MATIC</option>
+        <option value="250">FTM</option>
+        <option value="42161">ARBITRUM</option>
+        <option value="43114">AVAX</option>
+      </select>
+      <div class="form-check col-5 me-5">
+        <input class="form-check-input tokenType" type="radio" name="tokenRadio" id="tokenRadio" value="token" checked>
+        <label class="form-check-label" for="tokenRadio">
+          Tokens
+        </label>
+      </div>
+      <div class="form-check col-5">
+        <input class="form-check-input tokenType" type="radio" name="tokenRadio" id="nftRadio" value="nft">
+        <label class="form-check-label" for="nftRadio">
+          NFTs
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="txs my-5">
+  </div>
+</div>

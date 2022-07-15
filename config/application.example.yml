@@ -1,0 +1,11 @@
+production:
+  DATABASE_URL: ""
+  SENTRY_DSN: "Sentry DSN"
+  SENDGRID_API_KEY: sendgrid 密钥
+  JOB_MAILER_RECEIVERS: "job收件人邮箱用逗号分隔"
+  SLACK_MONITOR_CHANNEL: slack channel 接口地址
+  http_proxy: "http://127.0.0.1:7890"
+  CMC_API_KEY: "CMC API KEY"
+  COVALENTHQ_KEY: "COVALENTHQ_KEY"
+  BIT_QUERY_API_KEYS: "BIT_QUERY_API_KEYS"
+  SIDEKIQ_REDIS_URL: "redis://localhost:6379/0"

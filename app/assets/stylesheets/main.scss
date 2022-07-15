@@ -1,0 +1,65 @@
+.hide {display: none;}
+#spinner{position: fixed;z-index: 9999;top: 40%;left: 40%;padding: 0 20px;min-width: 100px;border-radius: 8px;}
+.base_line {border-bottom: 1px solid rgb(245, 247, 248);}
+.table-container-tr {
+  a {
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+  }
+}
+
+ /* 分页的css */
+ .paginationBox {
+  a span.page-numbers {
+    margin-right: 0.25rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    display: inline-block;
+    padding: 5px 10px;
+    color: #666;
+    font-size: 13px;
+  }
+
+  span.page-numbers:hover,
+  span.page-numbers.current {
+    color: #fff;
+    background-color: #377dff;
+    border-color: transparent;
+  }
+}
+.fs-12{
+  font-size: 12px;
+}
+.text-right{
+  text-align: right;
+}
+
+/* Select2 custom styles */
+
+.select2-container {
+  width: 100% !important;
+  .select2-selection {
+    height: 38px !important;
+    border: 1px solid #ced4da !important;
+    .select2-selection__rendered{
+      line-height: 38px !important;
+    }
+    .select2-selection__arrow{
+      height: 36px !important;
+    }
+  }
+  .select2-search--dropdown {
+    .select2-search__field {
+      border: 1px solid #ced4da !important;
+    }
+  }
+  .select2-dropdown {
+    border: 1px solid #ced4da !important;
+  }
+  .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: #0d6efd !important;
+  }
+} 
+
+

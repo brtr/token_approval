@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Token Approval</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="turbolinks-cache-control" content="no-cache"> 
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="col-9 nav">
+        <a class="navbar-brand" href="/">
+          <%= image_tag("logo.svg", with: '30', height: '24', class: "d-inline-block align-text-top")%>Token Approval
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="nav-item">
+              <%= link_to "首页", root_path, class: "nav-link #{@page_index == 1 ? 'active' : ''}" %>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="text-right loginBtns">
+          <div class="btns">
+            <%= button_tag('用metamask登录', class: "btn btn-warning", id: "btn-login") %>
+          </div>
+          <div class="meta_dropdown hide">
+            <span id="login_address"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div id="spinner" class="hide">
+    <%= image_tag("loading.svg") %>
+  </div>
+  <%= yield %>
+</div>
+</body>
+</html>

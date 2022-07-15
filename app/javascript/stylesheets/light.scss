@@ -1,0 +1,42 @@
+.token-approval-checker-page {
+  background-color: #f3f6fa;
+}
+
+.card {
+  word-wrap: break-word;
+  background-clip: border-box;
+  background-color: #fff;
+  border: 0 solid transparent;
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+
+  .card-header {
+    background-color: #fff;
+    border-bottom: 0 solid transparent;
+    margin-bottom: 0;
+    padding: 1rem 1.25rem;
+  }
+}
+
+.table thead tr {
+  th {
+    border-bottom-color: #DEE6F0 !important;
+  }
+}
+
+.table tbody tr {
+  border-color: #DEE6F0;
+
+  td {
+    border-bottom-color: #fff !important;
+  }
+}
+
+.chain-label {
+  position: absolute;
+  right: 4rem;
+  top: 0.5rem;
+}

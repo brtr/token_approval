@@ -1,0 +1,28 @@
+{
+  "name": "token-approval",
+  "private": true,
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.7.0",
+    "@popperjs/core": "^2.9.3",
+    "@rails/actioncable": "^6.0.0",
+    "@rails/activestorage": "^6.0.0",
+    "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "5.4.0",
+    "bootstrap": "^5.1.0",
+    "bootstrap-datepicker": "^1.9.0",
+    "chart.js": "^3.5.1",
+    "chartkick": "^4.0.5",
+    "ethers": "^5.6.9",
+    "jquery": "^3.6.0",
+    "moment": "^2.29.1",
+    "popper.js": "^1.16.1",
+    "select2": "^4.1.0-rc.0",
+    "turbolinks": "^5.2.0",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.2"
+  }
+}
