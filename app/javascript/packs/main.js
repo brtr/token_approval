@@ -8,9 +8,10 @@ let tokenType = $(".tokenType").val() || "token";
 let chain_id = 1;
 let chain_name = "ETH"
 const metaProvider = new ethers.providers.Web3Provider(web3.currentProvider);
+const signer = metaProvider.getSigner()
 const whiteList = NODE_ENV["WHITELIST"].split(",");
 
-let records, contract, allowance, isApproved, provider, signer, block, time;
+let records, contract, allowance, isApproved, provider, block, time;
 
 async function login() {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
@@ -104,7 +105,7 @@ function rebuildCard() {
     })
 }
 
-async function revoke($el) {
+async function revoke($el, multiple=false, isLast=false) {
     if (loginAddress) {
         const { chainId } = await metaProvider.getNetwork();
         if (chain_id == chainId) {
@@ -118,7 +119,15 @@ async function revoke($el) {
                     .then(async (tx) => {
                         console.log("tx: ", tx)
                         await tx.wait();
-                        alert("Revoke successfully!");
+                        if (!multiple || isLast) {
+                            alert("Revoke successfully!");
+                            reloadData(user);
+                        }
+                    }).catch (err => {
+                        fetchErrMsg(err);
+                        if (!multiple || isLast) {
+                            reloadData(user);
+                        }
                     })
                 } else {
                     contract = new ethers.Contract(token, ERC721Metadata, provider);
@@ -126,22 +135,34 @@ async function revoke($el) {
                     .then(async (tx) => {
                         console.log("tx: ", tx)
                         await tx.wait();
-                        alert("Revoke successfully!");
+                        if (!multiple || isLast) {
+                            alert("Revoke successfully!");
+                            reloadData(user);
+                        }
+                    }).catch (err => {
+                        fetchErrMsg(err);
+                        if (!multiple || isLast) {
+                            reloadData(user);
+                        }
                     })
                 }
-
-                reloadData(user);
             } else {
-                alert("You are not allowed to revoke other's token");
-                $("#spinner").addClass("hide");
+                if (!multiple || isLast) {
+                    alert("You are not allowed to revoke other's token");
+                    $("#spinner").addClass("hide");
+                }
             }
         } else {
-            alert("Please switch to " + chain_name + " to revoke token");
-            $("#spinner").addClass("hide");
+            if (!multiple || isLast) {
+                alert("Please switch to " + chain_name + " to revoke token");
+                $("#spinner").addClass("hide");
+            }
         }
     } else {
-        alert("Please login to revoke token");
-        $("#spinner").addClass("hide");
+        if (!multiple || isLast) {
+            alert("Please login to revoke token");
+            $("#spinner").addClass("hide");
+        }
     }
 }
 
@@ -164,7 +185,6 @@ function reloadData(address) {
 function getProvider() {
     const rpc_url = NODE_ENV[`${chain_name.toUpperCase()}_RPC_URL`]
     provider = new ethers.providers.JsonRpcProvider(rpc_url);
-    signer = provider.getSigner()
 }
 
 function getName(address, addressType) {
@@ -181,6 +201,13 @@ function getName(address, addressType) {
             }
         })
     }
+}
+
+function fetchErrMsg (err) {
+    const errMsg = err.error ? err.error.message : err.message;
+    console.log("errMsg", errMsg);
+    alert('Error:  ' + errMsg.split(/:(.*)/s)[1]);
+    $("#spinner").hide();
 }
 
 $(document).on('turbolinks:load', function() {
@@ -219,10 +246,18 @@ $(document).on('turbolinks:load', function() {
             $("#chainSelect").on("change", function(){
                 chain_id = $(this).val();
                 chain_name = $(this).find("option:selected").text();
-                console.log("chain_name", chain_name);
-                console.log("chain_id", chain_id);
                 getProvider();
                 reloadData($("#address").val());
+            })
+
+            $(".token-approval-checker-page").on("click", "#revokeAllBtn", function(e){
+                e.preventDefault();
+                $("#spinner").removeClass("hide");
+                const $btns = $(".card[data-address='" + $(this).data("contract") + "'] #revokeBtn")
+                $btns.each(function(idx, el) {
+                    const isLast = $btns.length == idx + 1
+                    revoke($(el), true, isLast);
+                })
             })
         }
 
